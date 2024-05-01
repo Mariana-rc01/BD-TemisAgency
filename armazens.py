@@ -63,5 +63,19 @@ def armazens(count_armazens):
         local["localidade"] = local["localidade"].replace("'", "")
         local["rua"] = local["rua"].replace("'", "")
         addresses.remove(local)
-        output_buffer += f"({i}, 'Armazém {i + 1}', {random.randint(100, 1000)}, '{local['rua']}', '{local['localidade']}', '{local['código postal']}')" + ( "," if i < count_armazens - 1 else ";")
+        output_buffer += f"({i}, 'Armazém {i + 1}', {random.randint(100, 1000)}, '{local['rua']}', '{local['localidade']}', '{local['código postal']}')" + (
+            "," if i < count_armazens - 1 else ";")
+    return output_buffer
+
+
+def armazens_administradores(count_armazens, count_administradores):
+    output_buffer = ""
+    already_assigned = []
+    output_buffer += "INSERT INTO ArmazémAdministrador (Armazém, Administrador) \nVALUES"
+    for i in range(0, count_armazens - 1):
+        administrador = random.randint(0, count_administradores - 1)
+        while administrador in already_assigned:
+            administrador = random.randint(0, count_administradores - 1)
+        already_assigned.append(administrador)
+        output_buffer += f"({i}, {administrador})" + ("," if i < count_armazens - 2 else ";")
     return output_buffer

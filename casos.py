@@ -37,8 +37,8 @@ def casos(count_casos, count_clientes):
         estado = random.choice([0, 1])
         data_inicio = datas_pagamentos[i]
         if estado == 1:
-            data_fim = f"20{random.randint(10, 21)}-{str(random.randint(1, 12)).zfill(2)}-{str(random.randint(1, 28)).zfill(2)}"
-            while data_fim <= data_inicio:
+            data_fim = ""
+            while data_fim < data_inicio:
                 data_fim = f"20{random.randint(10, 21)}-{str(random.randint(1, 12)).zfill(2)}-{str(random.randint(1, 28)).zfill(2)}"
         else:
             data_fim = "NULL"
