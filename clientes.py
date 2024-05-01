@@ -1,23 +1,17 @@
 import random
-import requests
 import unidecode
 
 
 def clientes(count_clientes):
     output_buffer = ""
 
-    # Número de detetives a serem gerados
+    nomes_portugal = open("data/nomes.csv", encoding="utf8").read().split("\n")
 
-    nomes_portugal = requests.get(
-        "https://raw.githubusercontent.com/centraldedados/gerador-nomes/master/data/nomes.csv").content.decode(
-        "utf-8").split("\n")
-
-    sobrenomes_portugal = requests.get("https://raw.githubusercontent.com/centraldedados/gerador-nomes/master/data"
-                                       "/apelidos.csv").content.decode("utf-8").split("\n")
+    sobrenomes_portugal = open("data/apelidos.csv", encoding="utf8").read().split("\n")
 
     telefones_cliente = []
     emails_cliente = []
-    output_buffer += "INSERT INTO Cliente (id, nome) \nVALUES"
+    output_buffer += "INSERT INTO Cliente (Id, Nome) \nVALUES"
     for i in range(0, count_clientes):
         nome_cliente = (random.choice(nomes_portugal) + " " + random.choice(sobrenomes_portugal)).replace("'", "")
 
@@ -30,11 +24,11 @@ def clientes(count_clientes):
         output_buffer += f"({i},'{nome_cliente}')" + (
             "," if i < count_clientes - 1 else ";")
 
-    output_buffer += "\nINSERT INTO ClienteTelefones (cliente, telefone) \nVALUES"
+    output_buffer += "\nINSERT INTO ClienteTelefones (Cliente, Telefone) \nVALUES"
     for i in range(0, count_clientes):
         output_buffer += f"{telefones_cliente[i]}" + ("," if i < count_clientes - 1 else ";")
 
-    output_buffer += "\nINSERT INTO ClienteEmails (cliente, email) \nVALUES"
+    output_buffer += "\nINSERT INTO ClienteEmails (Cliente, Email) \nVALUES"
     for i in range(0, count_clientes):
         output_buffer += f"{emails_cliente[i]}" + ("," if i < count_clientes - 1 else ";")
 

@@ -1,4 +1,5 @@
-from armazens import armazens
+from administradores import administradores
+from armazens import armazens, armazens_administradores
 from casos import casos
 from clientes import clientes
 from detetives import detetives
@@ -11,6 +12,7 @@ count_clientes = 2000
 count_armazens = 15
 count_casos = 3000
 count_objetos = 1000
+count_administradores = 55
 
 output = ("USE temis_db;\n" +
           "-- DETETIVES\n" +
@@ -20,6 +22,10 @@ output = ("USE temis_db;\n" +
           "\n-- ARMAZÉNS\n" +
           armazens(count_armazens) +
           casos(count_casos, count_clientes) +
-          objetos(count_objetos, count_armazens, count_casos))
+          objetos(count_objetos, count_armazens, count_casos) +
+          "\n-- ADMINISTRADORES\n" +
+          administradores(count_administradores) +
+          "\n-- ADMINISTRADOR ARMAZÉNS\n" +
+          armazens_administradores(count_armazens, count_administradores))
 
 file.write(output)
