@@ -1,4 +1,5 @@
-from armazens import armazens
+from administradores import administradores
+from armazens import armazens, armazens_administradores
 from casos import casos
 from clientes import clientes
 from detetives import detetives
@@ -24,8 +25,10 @@ output = ("USE temis_db;\n" +
           armazens(count_armazens) +
           casos(count_casos, count_clientes) +
           objetos(count_objetos, count_armazens, count_casos) +
-          # Administrador
-          # ArmazémAdministrador
+          "\n-- ADMINISTRADORES\n" +
+          administradores(count_administradores) +
+          "\n-- ADMINISTRADOR ARMAZÉNS\n" +
+          armazens_administradores(count_armazens, count_administradores) +
           pagamento_administrador(count_casos, count_administradores) +
           # DetetiveAdministrador
           # CasoArquivo
