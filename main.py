@@ -6,6 +6,8 @@ from detetives import detetives
 from objetos import objetos
 from pagamentoAdministrador import pagamento_administrador
 from casoAdministrador import caso_administrador
+from detetiveCaso import detetive_caso
+from detetiveAdministrador import detetive_administrador
 
 file = open("povoamento.sql", "w", encoding="utf-8")
 
@@ -30,10 +32,12 @@ output = ("USE temis_db;\n" +
           "\n-- ADMINISTRADOR ARMAZÉNS\n" +
           armazens_administradores(count_armazens, count_administradores) +
           pagamento_administrador(count_casos, count_administradores) +
-          # DetetiveAdministrador
+          "\n -- DETETIVE ADMINISTRADOR\n" +
+          detetive_administrador(count_detetives, count_administradores) +    
           # CasoArquivo
           # CasoArquivoAnexo
-          # DetetiveCaso
+          "\n -- DETETIVE CASO\n" +
+          detetive_caso(count_casos, count_detetives) +
           caso_administrador(count_casos, count_administradores))
 
 file.write(output)
