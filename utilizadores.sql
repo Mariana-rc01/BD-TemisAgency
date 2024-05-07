@@ -1,5 +1,5 @@
 -- ------------------------------------------------------------------
--- USERS
+-- UTILIZADORES
 -- Criação, alteração e remoção de utilizadores e os seus privilégios
 -- ------------------------------------------------------------------
 
@@ -17,12 +17,29 @@ CREATE USER 'elenaAdminTemis'@'localhost'
 CREATE USER 'alessandroAdminTemis'@'localhost'
 	IDENTIFIED BY 'AdminA3!';
     
+
+-- -----------------------------------------
+-- Criação de dois clientes da Agência Témis
+-- -----------------------------------------
+
+-- Criação do cliente João Silva
+CREATE USER 'joaoClienteTemis'@'localhost'
+	IDENTIFIED BY 'ClienteJ4!';
+
+-- Criação do cliente Maria Santos
+CREATE USER 'mariaClienteTemis'@'localhost'
+	IDENTIFIED BY 'ClienteM5!';
+
+
 -- ------------------------------------
 -- Remoção dos utilizadores do sistema
 -- ------------------------------------
 
 DROP USER 'elenaAdminTemis'@'localhost';
 DROP USER 'alessandroAdminTemis'@'localhost';
+
+DROP USER 'joaoClienteTemis'@'localhost';
+DROP USER 'mariaClienteTemis'@'localhost';
 
 -- --------------------------------------------
 -- Consulta dos utilizador criados no sistema:
@@ -49,6 +66,8 @@ GRANT ALL PRIVILEGES ON temis_db.* TO 'elenaAdminTemis'@'localhost';
 -- Permissão de acesso a todos os objetos da base de dados em 'localhost'
 GRANT ALL PRIVILEGES ON temis_db.* TO 'alessandroAdminTemis'@'localhost';
 
+-- Falta atribuir os privilégios aos clientes, são necessários os procedimentos para isto
+
 -- ------------------------------------------------------
 -- Consulta dos privilégios atribuídos aos utilizadores:
 -- ------------------------------------------------------
@@ -58,6 +77,12 @@ SHOW GRANTS FOR 'elenaAdminTemis'@'localhost';
 
 -- Consulta dos privilégios atribuídos ao utilizador 'alessandroAdminTemis'
 SHOW GRANTS FOR 'alessandroAdminTemis'@'localhost';
+
+-- Consulta dos privilégios atribuídos ao utilizador 'joaoClienteTemis'
+SHOW GRANTS FOR 'joaoClienteTemis'@'localhost';
+
+-- Consulta dos privilégios atribuídos ao utilizador 'mariaClienteTemis'
+SHOW GRANTS FOR 'mariaClienteTemis'@'localhost';
 
 -- ------------------------------------------------------
 -- Refrescamento dos privilégios dos utilizadores:
@@ -73,3 +98,9 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'elenaAdminTemis'@'localhost';
 
 -- Remoção de todos os tipos de privilégios do administrador 'alessandroAdminTemis'
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'alessandroAdminTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do cliente 'joaoClienteTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'joaoClienteTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do cliente 'mariaClienteTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'mariaClienteTemis'@'localhost';
