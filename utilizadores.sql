@@ -30,6 +30,18 @@ CREATE USER 'joaoClienteTemis'@'localhost'
 CREATE USER 'mariaClienteTemis'@'localhost'
 	IDENTIFIED BY 'ClienteM5!';
 
+-- -----------------------------------------
+-- Criação de dois detetives da Agência Témis
+-- -----------------------------------------
+
+-- Criação do detetive Armando Torres
+CREATE USER 'armandoDetetiveTemis'@'localhost'
+	IDENTIFIED BY 'DetetiveA1!';
+
+-- Criação do detetive Marco Poirot
+CREATE USER 'poirotDetetiveTemis'@'localhost'
+	IDENTIFIED BY 'DetetiveM1!';
+
 
 -- ------------------------------------
 -- Remoção dos utilizadores do sistema
@@ -40,6 +52,9 @@ DROP USER 'alessandroAdminTemis'@'localhost';
 
 DROP USER 'joaoClienteTemis'@'localhost';
 DROP USER 'mariaClienteTemis'@'localhost';
+
+DROP USER 'armandoDetetiveTemis'@'localhost';
+DROP USER 'poirotDetetiveTemis'@'localhost';
 
 -- --------------------------------------------
 -- Consulta dos utilizador criados no sistema:
@@ -84,6 +99,12 @@ SHOW GRANTS FOR 'joaoClienteTemis'@'localhost';
 -- Consulta dos privilégios atribuídos ao utilizador 'mariaClienteTemis'
 SHOW GRANTS FOR 'mariaClienteTemis'@'localhost';
 
+-- Consulta dos privilégios atribuídos ao utilizador 'armandoDetetiveTemis'
+SHOW GRANTS FOR 'armandoDetetiveTemis'@'localhost';
+
+-- Consulta dos privilégios atribuídos ao utilizador 'poirotDetetiveTemis'
+SHOW GRANTS FOR 'poirotDetetiveTemis'@'localhost';
+
 -- ------------------------------------------------------
 -- Refrescamento dos privilégios dos utilizadores:
 -- ------------------------------------------------------
@@ -104,3 +125,9 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'joaoClienteTemis'@'localhost';
 
 -- Remoção de todos os tipos de privilégios do cliente 'mariaClienteTemis'
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'mariaClienteTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do detetive 'armandoDetetiveTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'armandoDetetiveTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do detetive 'poirotDetetiveTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'poirotDetetiveTemis'@'localhost';
