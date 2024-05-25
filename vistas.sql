@@ -3,7 +3,7 @@
 -- Criação, alteração e remoção de vistas.
 -- ------------------------------------------------------------------
 -- Base de Dados de Trabalho.
-use temis_db;
+USE temis_db;
 
 --
 -- VISTAS
@@ -100,6 +100,38 @@ LEFT JOIN
 DROP VIEW AdministradorEmailTelefone;
 --
 
+-- Armazém
+
+CREATE VIEW ArmazemInformação AS
+SELECT 
+    a.Id,
+    a.Rua,
+    a.Localidade,
+    a.Lotação
+FROM 
+    Armazém AS a;
+
+--
+DROP VIEW ArmazemInformação;
+--
+
+-- Pagamento
+
+CREATE VIEW PagamentoInfo AS
+SELECT
+    P.Id AS Pagamento,
+    P.Valor AS Valor,
+    C.Id AS Caso,
+    CL.Nome AS Cliente
+FROM
+    Pagamento AS P
+    LEFT JOIN Caso AS C ON C.Pagamento = P.Id
+    LEFT JOIN Cliente AS CL ON CL.Id = C.Cliente;
+
+--
+DROP VIEW PagamentoInfo;
+--
+
 -- Utilização das vistas criadas anteriormente.
 SELECT * FROM DetetiveEmail;
 
@@ -112,3 +144,7 @@ SELECT * FROM AdministradorEmail;
 SELECT * FROM AdministradorTelefone;
 
 SELECT * FROM AdministradorEmailTelefone;
+
+SELECT * FROM ArmazemInformação;
+
+SELECT * FROM PagamentoInfo;
