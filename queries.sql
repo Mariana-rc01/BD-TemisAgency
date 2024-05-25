@@ -21,3 +21,16 @@ FROM Caso c
 JOIN Especialização e ON c.Especialização = e.Id
 GROUP BY c.Especialização, e.Designação
 ORDER BY total_casos DESC;
+
+-- Listar os casos de um detetive.
+SELECT *
+FROM Caso
+INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso
+WHERE DetetiveCaso.Detetive = 1;
+
+-- Mostrar os casos ainda em curso (ativos) e os detetives que os estão a investigar.
+SELECT Caso.DataInício, Caso.Estado, Caso.Especialização, Caso.Cliente, Caso.Pagamento, DetetiveCaso.Detetive, Detetive.Id, Detetive.Nome
+FROM Caso
+INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso
+INNER JOIN Detetive ON DetetiveCaso.Detetive = Detetive.Id
+WHERE Caso.Estado = 1;
