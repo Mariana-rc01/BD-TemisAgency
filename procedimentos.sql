@@ -40,7 +40,7 @@ BEGIN
         SELECT
             mes AS Mes,
             MONTHNAME(CONCAT(Ano, '-', mes, '-01')) AS Nome,
-            CalculaFaturaçãoMensal(mes, Ano) AS Faturacao
+            fuCalculaFaturaçãoMensal(mes, Ano) AS Faturacao
         FROM
             (SELECT 1 AS mes
             UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4
