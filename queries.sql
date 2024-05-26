@@ -1,8 +1,7 @@
 -- ------------------------------------------------------------------
--- QUERIES
--- Criação, alteração e remoção de utilizadores e os seus privilégios
+-- Q U E R I E S
+-- Interrogações utilizadas pelos utilizadores do sistema de base de dados.
 -- ------------------------------------------------------------------
-
 USE temis_db;
 
 -- Estimar quanto gasta em média um cliente
@@ -28,7 +27,7 @@ FROM Caso
 INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso
 WHERE DetetiveCaso.Detetive = 1;
 
--- Mostrar os casos ainda em curso (ativos) e os detetives que os estão a investigar
+-- Mostrar os casos ainda em curso (ativos) e os detetives que os estão a investigar
 SELECT Caso.DataInício, Caso.Estado, Caso.Especialização, Caso.Cliente, Caso.Pagamento, DetetiveCaso.Detetive, Detetive.Id, Detetive.Nome
 FROM Caso
 INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso

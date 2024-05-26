@@ -117,3 +117,89 @@ BEGIN
     END IF;
 END $$
 
+-- T R A N S A C T I O N S
+
+-- Criação do procedimento "spAdicionarDetetive" que recorre a uma transação.
+-- Procedimento que adiciona um detetive e os respetivos dados de contacto (separados por vírgulas) à base de dados.
+-- DROP PROCEDURE spAdicionarDetetive;
+DELIMITER $$
+CREATE PROCEDURE spAdicionarDetetive(
+    IN Id INT,
+    IN Nome VARCHAR(75),
+    IN Nascimento DATE,
+    IN Emails VARCHAR(250),
+    IN Telefones VARCHAR(250),
+    OUT Resultado VARCHAR(200)
+)
+AdicionarDetetive:BEGIN
+    -- Declaração de variáveis de controlo e de um handler para deteção da ocorrência de exceções SQL
+    DECLARE Erro TINYINT DEFAULT 0;
+    DECLARE Email VARCHAR(250);
+    DECLARE Telefone VARCHAR(250);
+    DECLARE EmailPos INT DEFAULT 1;
+    DECLARE TelefonePos INT DEFAULT 1;
+    DECLARE EmailTamanho INT;
+    DECLARE TelefoneTamanho INT;
+    DECLARE EmailPosFinal INT;
+    DECLARE TelefonePosFinal INT;
+    DECLARE CONTINUE HANDLER
+        FOR SQLEXCEPTION
+            SET Erro = 1;
+
+    -- Início da transação
+    START TRANSACTION;
+
+    -- Inserção na tabela Detetive
+    INSERT INTO Detetive
+        (Id, Nome, DataNascimento)
+        VALUES
+        (Id, Nome, Nascimento);
+    IF Erro = 1 THEN
+        -- Interrupção da transação
+        ROLLBACK;
+        SET Resultado = 'Erro na inserção na tabela Detetive.';
+        LEAVE AdicionarDetetive;
+    END IF;
+
+    -- Inserção dos emails na tabela DetetiveEmails
+    SET EmailTamanho = CHAR_LENGTH(Emails);
+    WHILE EmailPos <= EmailTamanho DO
+        SET EmailPosFinal = INSTR(SUBSTRING(Emails FROM EmailPos), ',');
+        IF EmailPosFinal = 0 THEN
+            SET EmailPosFinal = EmailTamanho - EmailPos + 1;
+        END IF;
+        SET Email = TRIM(SUBSTRING(Emails, EmailPos, EmailPosFinal - 1));
+        INSERT INTO DetetiveEmails (Detetive, Email) VALUES (Id, Email);
+        IF Erro = 1 THEN
+            ROLLBACK;
+            SET Resultado = 'Erro na inserção na tabela DetetiveEmails.';
+            LEAVE AdicionarDetetive;
+        END IF;
+        SET EmailPos = EmailPos + EmailPosFinal;
+    END WHILE;
+
+    -- Inserção dos telefones na tabela DetetiveTelefones
+    SET TelefoneTamanho = CHAR_LENGTH(Telefones);
+    WHILE TelefonePos <= TelefoneTamanho DO
+        SET TelefonePosFinal = INSTR(SUBSTRING(Telefones FROM TelefonePos), ',');
+        IF TelefonePosFinal = 0 THEN
+            SET TelefonePosFinal = TelefoneTamanho - TelefonePos + 1;
+        END IF;
+        SET Telefone = TRIM(SUBSTRING(Telefones, TelefonePos, TelefonePosFinal - 1));
+        INSERT INTO DetetiveTelefones (Detetive, Telefone) VALUES (Id, Telefone);
+        IF Erro = 1 THEN
+            ROLLBACK;
+            SET Resultado = 'Erro na inserção na tabela DetetiveTelefones.';
+            LEAVE AdicionarDetetive;
+        END IF;
+        SET TelefonePos = TelefonePos + TelefonePosFinal;
+    END WHILE;
+
+    -- Confirmação da transação
+    COMMIT;
+    SET Resultado = 'Detetive adicionado com sucesso.';
+END$$
+
+-- Exemplo de chamada ao procedimento "spAdicionarDetetive":
+-- CALL spAdicionarDetetive(<Id>, <Nome>, <Data Nascimento>, <Email,Email,... >, <Telefone,Telefone,... >, @Resultado);
+-- SELECT @Resultado;
