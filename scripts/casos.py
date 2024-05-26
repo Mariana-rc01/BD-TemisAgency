@@ -10,6 +10,7 @@ arquivo_template = [
     ["Áudio de escuta", "Áudio de escuta", ["escuta.wav", "captura.mp3"]]
 ]
 
+fotos = open("data/fotos.txt", encoding="utf8").read().split("\n")
 
 def casos(count_casos, count_clientes):
     output_buffer = ""
@@ -84,8 +85,8 @@ def casos(count_casos, count_clientes):
     for i in range(0, arquivo_id):
         count_anexo_arquivos = random.randint(1, 2)
         for j in range(count_anexo_arquivos):
-            anexo = random.choice(arquivos[i][2])
-            output_buffer += f"({anexo_id}, '{anexo}', {i})" + (
+            anexo = random.choice(fotos)
+            output_buffer += f"({anexo_id}, x'{anexo}', {i})" + (
                 ";" if (i == arquivo_id - 1 and j == count_anexo_arquivos - 1) else ",")
             anexo_id += 1
 
