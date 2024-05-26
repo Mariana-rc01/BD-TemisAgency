@@ -10,6 +10,7 @@ arquivo_template = [
     ["Áudio de escuta", "Áudio de escuta", ["escuta.wav", "captura.mp3"]]
 ]
 
+
 def casos(count_casos, count_clientes):
     output_buffer = ""
 
@@ -61,9 +62,8 @@ def casos(count_casos, count_clientes):
         output_buffer += f"({i},'{data_inicio}', {data_fim}, {estado}, {especializacao}, {cliente}, {pagamento})" + (
             "," if i < count_casos - 1 else ";")
 
-    return output_buffer
-
     # Caso Arquivos
+
     output_buffer += "\n-- CASO_ARQUIVOS\n"
     arquivo_id = 0
     arquivos = []
@@ -77,7 +77,7 @@ def casos(count_casos, count_clientes):
                 ";" if (i == count_casos - 1 and j == range_arquivos - 1) else ",")
             arquivo_id += 1
 
-    # Caso Arquivo Anexos
+    # Caso Arquivo Anexo
     output_buffer += "\n-- CASO ARQUIVO ANEXO\n"
     anexo_id = 0
     output_buffer += f"\nINSERT INTO CasoArquivoAnexo (Id, Anexo, Arquivo) \nVALUES"
@@ -87,3 +87,6 @@ def casos(count_casos, count_clientes):
             anexo = random.choice(arquivos[i][2])
             output_buffer += f"({anexo_id}, '{anexo}', {i})" + (
                 ";" if (i == arquivo_id - 1 and j == count_anexo_arquivos - 1) else ",")
+            anexo_id += 1
+
+    return output_buffer

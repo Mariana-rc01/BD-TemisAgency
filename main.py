@@ -41,8 +41,6 @@ output = ("USE temis_db;\n" +
           pagamento_administrador(count_casos, count_administradores) +
           "\n -- DETETIVE ADMINISTRADOR\n" +
           detetive_administrador(count_detetives, count_administradores) +
-          # CasoArquivo
-          # CasoArquivoAnexo
           "\n -- DETETIVE CASO\n" +
           detetive_caso(count_casos, count_detetives) +
           caso_administrador(count_casos, count_administradores))
