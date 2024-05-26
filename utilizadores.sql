@@ -42,6 +42,21 @@ CREATE USER 'armandoDetetiveTemis'@'localhost'
 CREATE USER 'poirotDetetiveTemis'@'localhost'
 	IDENTIFIED BY 'DetetiveM1!';
 
+-- ----------------------------------------
+-- Criação de Astraea Eos da Agência Témis
+-- ----------------------------------------
+
+-- Criação do utilizador Astraea Eos
+CREATE USER 'astraeaUtilizadorTemis'@'localhost'
+	IDENTIFIED BY 'UtilizadorA6!';
+
+-- -------------------------------------------
+-- Criação de Hera Demetrius da Agência Témis
+-- -------------------------------------------
+
+-- Criação do utilizador Hera Demetrius
+CREATE USER 'heraUtilizadorTemis'@'localhost'
+	IDENTIFIED BY 'UtilizadorH7!';
 
 -- ------------------------------------
 -- Remoção dos utilizadores do sistema
@@ -55,6 +70,10 @@ DROP USER 'mariaClienteTemis'@'localhost';
 
 DROP USER 'armandoDetetiveTemis'@'localhost';
 DROP USER 'poirotDetetiveTemis'@'localhost';
+
+DROP USER 'astraeaUtilizadorTemis'@'localhost';
+
+DROP USER 'heraUtilizadorTemis'@'localhost';
 
 -- --------------------------------------------
 -- Consulta dos utilizador criados no sistema:
@@ -105,6 +124,12 @@ SHOW GRANTS FOR 'armandoDetetiveTemis'@'localhost';
 -- Consulta dos privilégios atribuídos ao utilizador 'poirotDetetiveTemis'
 SHOW GRANTS FOR 'poirotDetetiveTemis'@'localhost';
 
+-- Consulta dos privilégios atribuídos ao utilizador 'astraeaUtilizadorTemis'
+SHOW GRANTS FOR 'astraeaUtilizadorTemis'@'localhost';
+
+-- Consulta dos privilégios atribuídos ao utilizador 'heraUtilizadorTemis'
+SHOW GRANTS FOR 'heraUtilizadorTemis'@'localhost';
+
 -- ------------------------------------------------------
 -- Refrescamento dos privilégios dos utilizadores:
 -- ------------------------------------------------------
@@ -131,3 +156,9 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'armandoDetetiveTemis'@'localhost';
 
 -- Remoção de todos os tipos de privilégios do detetive 'poirotDetetiveTemis'
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'poirotDetetiveTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do utilizador 'astraeaUtilizadorTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'astraeaUtilizadorTemis'@'localhost';
+
+-- Remoção de todos os tipos de privilégios do utilizador 'heraUtilizadorTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'heraUtilizadorTemis'@'localhost';
