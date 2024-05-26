@@ -137,7 +137,7 @@ DROP VIEW PagamentoInfo;
 -- Caso
 
 CREATE VIEW CasosInformação AS
-SELECT e.Designação as Especialização, cl.Nome as Cliente, p.Valor as Pagamento, COUNT(o.Id), c.DataInício, c.DataFim FROM Caso c
+SELECT e.Designação as Especialização, cl.Nome as Cliente, p.Valor as Pagamento, c.DataInício, c.DataFim FROM Caso c
     INNER JOIN Especialização e ON c.Especialização = e.Id
     INNER JOIN Cliente cl ON c.Cliente = cl.Id
     INNER JOIN Pagamento p ON c.Pagamento = p.Id
@@ -145,6 +145,31 @@ SELECT e.Designação as Especialização, cl.Nome as Cliente, p.Valor as Pagame
 
 --
 DROP VIEW CasosInformação;
+--
+
+-- Objeto
+
+CREATE VIEW ObjetosInformação AS
+SELECT o.Id, o.DataDeRecolha, o.Descrição, f.Fotos as Fotos, a.Id as Armazém, c.Id as Caso FROM Objeto o
+		LEFT JOIN Fotos f ON o.Id = f.Objeto
+		INNER JOIN Armazém a ON o.Armazém = a.Id
+		INNER JOIN Caso c ON o.Caso = c.Id
+		ORDER BY o.DataDeRecolha DESC;
+
+--
+DROP VIEW ObjetosInformação;
+--
+
+-- Cliente
+
+CREATE VIEW ClientesInformação AS
+SELECT c.Id, c.Nome, e.Emails as Emails, t.Telefones as Telefones FROM Cliente c
+		LEFT JOIN Emails e ON e.Cliente = c.Id
+		LEFT JOIN Telefones t ON t.Cliente = c.Id
+		ORDER BY c.Id DESC;
+
+--
+DROP VIEW ClientesInformação;
 --
 
 -- Utilização das vistas criadas anteriormente.
@@ -165,3 +190,7 @@ SELECT * FROM ArmazemInformação;
 SELECT * FROM PagamentoInfo;
 
 SELECT * FROM CasosInformação;
+
+SELECT * FROM ObjetosInformação;
+
+SELECT * FROM ClientesInformação;
