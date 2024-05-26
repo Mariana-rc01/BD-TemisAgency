@@ -28,9 +28,20 @@ FROM Caso
 INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso
 WHERE DetetiveCaso.Detetive = 1;
 
--- Mostrar os casos ainda em curso (ativos) e os detetives que os estão a investigar.
+-- Mostrar os casos ainda em curso (ativos) e os detetives que os estão a investigar
 SELECT Caso.DataInício, Caso.Estado, Caso.Especialização, Caso.Cliente, Caso.Pagamento, DetetiveCaso.Detetive, Detetive.Id, Detetive.Nome
 FROM Caso
 INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso
 INNER JOIN Detetive ON DetetiveCaso.Detetive = Detetive.Id
 WHERE Caso.Estado = 1;
+
+-- Listar os armazéns por localidade
+SELECT a.Id, a.Descrição FROM Armazém a
+	WHERE a.Localidade = 'CidadeC';
+
+-- Listar os armazéns por maior número de objetos guardados
+SELECT Objeto.Armazém, Armazém.Descrição, Armazém.Localidade, COUNT(*) AS Objetos 
+FROM Objeto 
+INNER JOIN Armazém ON Objeto.Armazém = Armazém.Id 
+GROUP BY Armazém 
+ORDER BY Objetos DESC 
