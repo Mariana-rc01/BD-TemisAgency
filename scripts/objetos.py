@@ -147,6 +147,8 @@ objetos_crime = [
     "pedaço de madeira"
 ]
 
+fotos = open("data/fotos.txt", encoding="utf8").read().split("\n")
+
 
 def objetos(count_objetos, count_armazens, count_casos):
     output_buffer_fotos = ""
@@ -155,12 +157,12 @@ def objetos(count_objetos, count_armazens, count_casos):
     output_buffer = ""
     for i in range(1, count_objetos):
         objeto = random.choice(objetos_crime).capitalize()
-        objeto_foto = objeto.replace(" ", "_").lower() + random.choice([".jpg", ".png", ".jpeg"])
+        objeto_foto = random.choice(fotos)
         data_recolha = "19" + str(random.randint(70, 99)) + "-" + str(random.randint(1, 12)).zfill(
             2) + "-" + str(random.randint(1, 28)).zfill(2)
-        output_buffer_objetos += f"({i}, '{data_recolha}' ,'{objeto}', {random.randint(0, count_armazens -1)}, {random.randint(0, count_casos - 1)})" + (
+        output_buffer_objetos += f"({i}, '{data_recolha}' ,'{objeto}', {random.randint(0, count_armazens - 1)}, {random.randint(0, count_casos - 1)})" + (
             ",\n" if i < count_objetos - 1 else ";")
-        output_buffer_fotos += f"({i}, '{objeto_foto}', {i})" + (",\n" if i < count_objetos - 1 else ";")
+        output_buffer_fotos += f"({i}, x'{objeto_foto}', {i})" + (",\n" if i < count_objetos - 1 else ";")
 
         output_buffer = output_buffer_objetos + "\n" + output_buffer_fotos
     return output_buffer
