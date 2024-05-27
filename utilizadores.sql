@@ -1,8 +1,7 @@
 -- ------------------------------------------------------------------
--- UTILIZADORES
--- Criação, alteração e remoção de utilizadores e os seus privilégios
+-- U T I L I Z A D O R E S
+-- Criação, alteração e remoção de utilizadores e os seus privilégios.
 -- ------------------------------------------------------------------
-
 USE temis_db;
 
 -- ------------------------------------------------
@@ -16,31 +15,18 @@ CREATE USER 'elenaAdminTemis'@'localhost'
 -- Criação do administrador Alessandro Pinheiro
 CREATE USER 'alessandroAdminTemis'@'localhost'
 	IDENTIFIED BY 'AdminA3!';
-    
-
--- -----------------------------------------
--- Criação de dois clientes da Agência Témis
--- -----------------------------------------
-
--- Criação do cliente João Silva
-CREATE USER 'joaoClienteTemis'@'localhost'
-	IDENTIFIED BY 'ClienteJ4!';
-
--- Criação do cliente Maria Santos
-CREATE USER 'mariaClienteTemis'@'localhost'
-	IDENTIFIED BY 'ClienteM5!';
 
 -- -----------------------------------------
 -- Criação de dois detetives da Agência Témis
 -- -----------------------------------------
 
--- Criação do detetive Armando Torres
-CREATE USER 'armandoDetetiveTemis'@'localhost'
-	IDENTIFIED BY 'DetetiveA1!';
+-- Criação da detetive Telma Salgado
+CREATE USER 'telmaDetetiveTemis'@'localhost'
+	IDENTIFIED BY 'DetetiveT1!';
 
--- Criação do detetive Marco Poirot
-CREATE USER 'poirotDetetiveTemis'@'localhost'
-	IDENTIFIED BY 'DetetiveM1!';
+-- Criação do detetive Fernando Faia
+CREATE USER 'fernandoDetetiveTemis'@'localhost'
+	IDENTIFIED BY 'DetetiveF1!';
 
 -- ----------------------------------------
 -- Criação de Astraea Eos da Agência Témis
@@ -65,11 +51,8 @@ CREATE USER 'heraUtilizadorTemis'@'localhost'
 DROP USER 'elenaAdminTemis'@'localhost';
 DROP USER 'alessandroAdminTemis'@'localhost';
 
-DROP USER 'joaoClienteTemis'@'localhost';
-DROP USER 'mariaClienteTemis'@'localhost';
-
-DROP USER 'armandoDetetiveTemis'@'localhost';
-DROP USER 'poirotDetetiveTemis'@'localhost';
+DROP USER 'telmaDetetiveTemis'@'localhost';
+DROP USER 'fernandoDetetiveTemis'@'localhost';
 
 DROP USER 'astraeaUtilizadorTemis'@'localhost';
 
@@ -92,6 +75,8 @@ SELECT User, Host
 -- Atribuição de privilégios aos utilizadores:
 -- --------------------------------------------
 
+-- Atribuição dos privilégios dos utilizadores administradores:
+
 -- Definição de privilégios do utilizador 'elenaAdminTemis'
 -- Permissão de acesso a todos os objetos da base de dados em 'localhost'
 GRANT ALL PRIVILEGES ON temis_db.* TO 'elenaAdminTemis'@'localhost';
@@ -100,7 +85,21 @@ GRANT ALL PRIVILEGES ON temis_db.* TO 'elenaAdminTemis'@'localhost';
 -- Permissão de acesso a todos os objetos da base de dados em 'localhost'
 GRANT ALL PRIVILEGES ON temis_db.* TO 'alessandroAdminTemis'@'localhost';
 
--- Falta atribuir os privilégios aos clientes, são necessários os procedimentos para isto
+-- Atribuição dos privilégios dos utilizadores detetives:
+
+-- Vistas auxiliares:
+
+CREATE VIEW CasosDetetive1 AS SELECT * FROM Caso INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso WHERE DetetiveCaso.Detetive = 1;
+
+CREATE VIEW CasosDetetive3 AS SELECT * FROM Caso INNER JOIN DetetiveCaso ON Caso.Id = DetetiveCaso.Caso WHERE DetetiveCaso.Detetive = 3;
+
+-- Definição de privilégios do utilizador 'telmaDetetiveTemis'
+-- Permissão de visualização e atualização de registos na vista relativa aos seus casos.
+GRANT SELECT, UPDATE ON temis_db.CasosDetetive1 TO 'telmaDetetiveTemis'@'localhost';
+
+-- Definição de privilégios do utilizador 'fernandoDetetiveTemis'
+-- Permissão de visualização e atualização de registos na vista relativa aos seus casos.
+GRANT SELECT, UPDATE ON temis_db.CasosDetetive3 TO 'fernandoDetetiveTemis'@'localhost';
 
 -- ------------------------------------------------------
 -- Consulta dos privilégios atribuídos aos utilizadores:
@@ -112,17 +111,11 @@ SHOW GRANTS FOR 'elenaAdminTemis'@'localhost';
 -- Consulta dos privilégios atribuídos ao utilizador 'alessandroAdminTemis'
 SHOW GRANTS FOR 'alessandroAdminTemis'@'localhost';
 
--- Consulta dos privilégios atribuídos ao utilizador 'joaoClienteTemis'
-SHOW GRANTS FOR 'joaoClienteTemis'@'localhost';
-
--- Consulta dos privilégios atribuídos ao utilizador 'mariaClienteTemis'
-SHOW GRANTS FOR 'mariaClienteTemis'@'localhost';
-
--- Consulta dos privilégios atribuídos ao utilizador 'armandoDetetiveTemis'
-SHOW GRANTS FOR 'armandoDetetiveTemis'@'localhost';
+-- Consulta dos privilégios atribuídos ao utilizador 'telmaDetetiveTemis'
+SHOW GRANTS FOR 'telmaDetetiveTemis'@'localhost';
 
 -- Consulta dos privilégios atribuídos ao utilizador 'poirotDetetiveTemis'
-SHOW GRANTS FOR 'poirotDetetiveTemis'@'localhost';
+SHOW GRANTS FOR 'fernandoDetetiveTemis'@'localhost';
 
 -- Consulta dos privilégios atribuídos ao utilizador 'astraeaUtilizadorTemis'
 SHOW GRANTS FOR 'astraeaUtilizadorTemis'@'localhost';
@@ -145,17 +138,11 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'elenaAdminTemis'@'localhost';
 -- Remoção de todos os tipos de privilégios do administrador 'alessandroAdminTemis'
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'alessandroAdminTemis'@'localhost';
 
--- Remoção de todos os tipos de privilégios do cliente 'joaoClienteTemis'
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'joaoClienteTemis'@'localhost';
-
--- Remoção de todos os tipos de privilégios do cliente 'mariaClienteTemis'
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'mariaClienteTemis'@'localhost';
-
--- Remoção de todos os tipos de privilégios do detetive 'armandoDetetiveTemis'
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'armandoDetetiveTemis'@'localhost';
+-- Remoção de todos os tipos de privilégios do detetive 'telmaDetetiveTemis'
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'telmaDetetiveTemis'@'localhost';
 
 -- Remoção de todos os tipos de privilégios do detetive 'poirotDetetiveTemis'
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'poirotDetetiveTemis'@'localhost';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'fernandoDetetiveTemis'@'localhost';
 
 -- Remoção de todos os tipos de privilégios do utilizador 'astraeaUtilizadorTemis'
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'astraeaUtilizadorTemis'@'localhost';

@@ -1,10 +1,8 @@
 -- ------------------------------------------------------------------
--- VISTAS
+-- V I S T A S
 -- Criação, alteração e remoção de vistas.
 -- ------------------------------------------------------------------
 USE temis_db;
-
--- VISTAS
 
 -- Detetive
 
@@ -173,6 +171,7 @@ DROP VIEW ClientesInformação;
 --
 
 -- Utilização das vistas criadas anteriormente.
+
 SELECT * FROM DetetiveEmail;
 
 SELECT * FROM DetetiveTelefone;
